@@ -1,0 +1,6 @@
+<launch>
+    <!-- Load parameters from YAML file -->
+    <rosparam file="$(find calibration)/config/femto_calibration_config.yaml" command="load" />
+    <node name="calibrator" pkg="calibration" type="extrinsic_femto.py" />
+
+</launch>
