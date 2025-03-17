@@ -6,13 +6,14 @@ The procedure requires a Franka Panda robot and the relative computer interface.
 Before calibration, set the relevant parameters in the calibration/config/ folder. 
 To execute the program you'll need to: 
 One terminal: 
->> roslaunch panda_moveit_config franka_control.launch robot_ip:<ip_robot>
-!! Toggle "Cartesian Path" and "Collision aware IK" in the launched Rviz interface 
+> roslaunch panda_moveit_config franka_control.launch robot_ip:<ip_robot>
+
+Toggle "Cartesian Path" and "Collision aware IK" in the launched Rviz interface 
 
 Other terminal: 
->> roslaunch calibration extrinsic_rs_calib.launch
+> roslaunch calibration extrinsic_rs_calib.launch
 
 The results will be stored in a local yaml file. 
 To verify the results, you can use the verification scripts. For the RealSense (e.g.): 
->>rosrun calibration verification_rs.py
+>rosrun calibration verification_rs.py
 
