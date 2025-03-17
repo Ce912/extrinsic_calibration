@@ -1,5 +1,5 @@
 # extrinsic_calibration
-This repo provides a useful ready-to-use package for extrinsic camera calibration, exploiting OpenCv, MoveIt! and tf library. The examples refer to RealSense and FemtoBolt cameras, but they can be easily adapted.
+This repo provides a useful ready-to-use ros-based package for extrinsic camera calibration, exploiting OpenCv, MoveIt! and tf library. The examples refer to RealSense and FemtoBolt cameras, but they can be easily adapted.
 In the calibration folder, you can find the scripts for: 
 - extrinsic camera calibration
 - marker detection for verifying the results
