@@ -4,8 +4,7 @@ The procedure requires a Franka Panda robot and the relative computer interface.
 
 # Guidelines: 
 Before calibration, set the relevant parameters in the calibration/config/ folder. 
-To execute the program you'll need to: 
-One terminal: 
+To execute the program you'll need to launch:
 > roslaunch panda_moveit_config franka_control.launch robot_ip:<ip_robot>
 
 Toggle "Cartesian Path" and "Collision aware IK" in the launched Rviz interface 
