@@ -3,7 +3,6 @@ board_columns: 11
 square_length: 0.015  # in meters
 marker_length: 0.011  # in meters
 max_poses: 10
-#output_file: "./calibration_results/extrinsic_femto.yaml"
-intrinsc_file_path: "./calibration_results/intrinsic_femto.yaml"
+output_file: "../extr_calib_results/extrinsic_femto.yaml"
 camera_res_w: 1280
 camera_res_h: 720

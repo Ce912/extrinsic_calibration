@@ -178,7 +178,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/extrinsic_calibration.py scripts/extrinsic_femto.py scripts/pinpoint_verification_femto.py scripts/pinpoint_verification_kinect.py scripts/pinpoint_verification.py
+  scripts/extrinsic_calib_rs.py scripts/extrinsic_calib_femto.py scripts/verification_femto.py scripts/verification_rs.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

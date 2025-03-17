@@ -4,7 +4,7 @@ import glob
 import yaml
 import os
 
-#This script perfmor intrisic calibration of a realsense camera exploiting the images saved in './images_rs/' 
+#This script perfmor intrisic calibration of a realsense camera exploiting the images saved in './images_femto/' 
 #and store results in a .yaml file.
 #More info on the OpenCv page
 #CAVEAT: rename one of the image as "distorted.png" to see the results
@@ -26,9 +26,9 @@ imgpoints = [] # 2d points in image plane.
  
 #Define path to images
 rel_path = os.path.dirname(os.path.abspath(__file__))
-image_path = os.path.join(rel_path,"../images_rs/*.png")
+image_path = os.path.join(rel_path,"../images_femto/*.png")
 images = glob.glob(image_path)
-
+ 
 #Read images in the folder
 for fname in images:
     img = cv.imread(fname)
@@ -53,16 +53,18 @@ for fname in images:
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 
 #Evaluate a distorted image
-dist_path = os.path.join(rel_path,"../images_rs/distorted.png")
+dist_path = os.path.join(rel_path,"../images_femto/distorted.png")
 img = cv.imread(dist_path)
 h,  w = img.shape[:2]
 newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
-#undistort
+# undistort
 dst = cv.undistort(img, mtx, dist, None, newcameramtx)
-
-#Save undistorted image
-corr_path = os.path.join(rel_path,"../images_rs/corrected.png")
+ 
+# crop the image
+x, y, w, h = roi
+dst = dst[y:y+h, x:x+w]
+corr_path = os.path.join(rel_path,"../images_femto/corrected.png")
 cv.imwrite(corr_path, dst)
 
 mean_error = 0
@@ -71,31 +73,32 @@ for i in range(len(objpoints)):
     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
     mean_error += error
 
-total_error = mean_error/len(objpoints)
-
-print( "total error: {}".format(mean_error/len(objpoints)) )
-
 #Set directory for saving results
 rel_ = os.path.dirname(os.path.abspath(__file__))
 directory = os.path.join(rel_, "./calibration_results")
 if not os.path.exists(directory):
     os.makedirs(directory)
-output_file = os.path.join(directory, "intrinsic_rs.yaml")
+
+output_file = os.path.join(directory, "intrinsic_femto.yaml")
+total_error = mean_error/len(objpoints)
 
 #Convert to list for saving in yaml
 mtx = mtx.tolist()
 dist = dist.tolist()
 data = {
-    "Camera": "Realsense",
+    "Camera": "FemtoBolt",
     "totatl error ": total_error,
     "ret": ret,
     "matrix": mtx, 
     "distorion" : dist,
+    "rvecs" : rvecs,
+    "tvects" : tvecs,
 }
 
 with open(output_file, "w") as f:
     yaml.dump(data, f, default_flow_style=False, sort_keys=False)
 print(f'Results saved in ', output_file)
-
+ 
 cv.destroyAllWindows()
+
 

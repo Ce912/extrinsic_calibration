@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <!-- Load parameters from YAML file -->
-    <node name="calibrator" pkg="calibration" type="extrinsic_calibration.py" output="screen">
+    <node name="calibrator" pkg="calibration" type="extrinsic_calib_rs.py" output="screen">
         <rosparam command="load" file="$(find calibration)/config/rs_calibration_config.yaml"/>
     </node>
 
